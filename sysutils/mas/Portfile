@@ -14,8 +14,7 @@ long_description    A simple command line interface for the Mac App Store. \
                     Designed for scripting and automation.
 license             MIT
 
-maintainers         {kimuraw @kimuraw} \
-                    {judaew @judaew} \
+maintainers         {judaew @judaew} \
                     openmaintainer
 
 checksums           sha256  c40e5d614a2aac0d804b1538782e448af297b314a1fc9785092d3fd2573dd3f2 \
