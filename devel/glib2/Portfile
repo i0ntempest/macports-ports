@@ -244,3 +244,20 @@ subport glib2-bootstrap {
 
 livecheck.type              gnome
 livecheck.name              ${my_name}
+
+pre-activate {
+    # the new glib2 port now installs files that were previously in gobject-introspection({,-devel} ports
+    if {![catch {lindex [registry_active gobject-introspection] 0} installed]} {
+        set _version [lindex $installed 1]
+        if {[vercmp $_version 1.86.0] < 0} {
+            registry_deactivate_composite gobject-introspection "" [list ports_nodepcheck 1]
+        }
+    }
+
+    if {![catch {lindex [registry_active gobject-introspection-devel] 0} installed]} {
+        set _version [lindex $installed 1]
+        if {[vercmp $_version 1.86.0] < 0} {
+            registry_deactivate_composite gobject-introspection-devel "" [list ports_nodepcheck 1]
+        }
+    }
+}
