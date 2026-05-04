@@ -374,20 +374,25 @@ proc handle_set_go_vendors {vendors_str} {
 # work.
 post-extract {
     if {${fetch.type} eq "standard"} {
-        # Don't try to create the worksrcpath using go.{domain,author,project}
-        # as the result will not be accurate when go.package has been
-        # customized.
-        file mkdir [file dirname ${worksrcpath}]
-        if {[file exists [glob -nocomplain ${workpath}/${go.author}-${go.project}-*]]} {
-            # GitHub and Bitbucket follow this path
-            move [glob ${workpath}/${go.author}-${go.project}-*] ${worksrcpath}
-        } elseif  {[file exists ${workpath}/${go.project}]} {
-            move ${workpath}/${go.project} ${worksrcpath}
+        # Use the same mechanism as the vendors to better handle submodules
+        if {[llength ${go.vendors_internal}]} {
+            lappend go.vendors_internal [list ${distname} ${go.package} "" ${version} ""]
         } else {
-            # GitLab follows this path
-            move [glob ${workpath}/${go.project}-*] ${worksrcpath}
+            # Don't try to create the worksrcpath using go.{domain,author,project}
+            # as the result will not be accurate when go.package has been
+            # customized.
+            file mkdir [file dirname ${worksrcpath}]
+            if {[file exists [glob -nocomplain ${workpath}/${go.author}-${go.project}-*]]} {
+                # GitHub and Bitbucket follow this path
+                move [glob ${workpath}/${go.author}-${go.project}-*] ${worksrcpath}
+            } elseif  {[file exists ${workpath}/${go.project}]} {
+                move ${workpath}/${go.project} ${worksrcpath}
+            } else {
+                # GitLab follows this path
+                move [glob ${workpath}/${go.project}-*] ${worksrcpath}
+            }
+            # If the above fails then something went wrong and we should error out.
         }
-        # If the above fails then something went wrong and we should error out.
     }
 
     # Sort so parent modules are handled before nested ones
