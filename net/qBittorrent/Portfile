@@ -7,7 +7,7 @@ PortGroup       qt6 1.0
 PortGroup       boost 1.0
 PortGroup       legacysupport 1.1
 
-github.setup    qbittorrent qBittorrent 5.1.4 release-
+github.setup    qbittorrent qBittorrent 5.2.0 release-
 github.tarball_from \
                 archive
 revision        0
@@ -26,9 +26,9 @@ long_description \
 
 homepage        https://www.qbittorrent.org
 
-checksums       rmd160  9023fed089161647ce027ebe427f68b019b12c5e \
-                sha256  ab37deeb364049a308127c572f139bd5eb0535fa355db8821e5aa31990b5625e \
-                size    9545949
+checksums       rmd160  376f9f063282eadddaa3e696a8ddc51c2c5342d9 \
+                sha256  543c657362d7aaf712ccb28e80236de3b7685235112122c06d69c6a8b68ef0e0 \
+                size    10829039
 
 qt6.blacklist   {< 6.5}
 
