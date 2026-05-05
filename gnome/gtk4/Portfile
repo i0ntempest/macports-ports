@@ -53,6 +53,9 @@ patchfiles-append   patch-docs-rst2man.diff
 # See: https://trac.macports.org/ticket/67985
 patchfiles-append   patch-meson-build-debug.diff
 
+# allow for building below macOS 10.15
+patchfiles-append   patch-fix-meson.build
+
 post-patch {
     reinplace "s|@@PYTHON_VERSION@@|${python_branch}|g" \
         docs/reference/gtk/meson.build
